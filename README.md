@@ -5,11 +5,11 @@
 ## 快速开始
 
 ```bash
-# CLIProxyAPIPlus (跨平台)
+# CLIProxyAPIPlus
 bash update_cliproxyapiplus.sh
 
-# CLIProxyAPI (Windows)
-python update_cli_proxy.py
+# CLIProxyAPI
+bash update_cliproxyapi.sh
 
 # Claude Code
 bash update_claude_code.sh
@@ -20,7 +20,7 @@ bash update_openai_codex.sh
 
 ## CLIProxyAPIPlus
 
-跨平台更新脚本 (Windows/Linux)，自动检测版本、备份配置、智能更新。
+跨平台更新脚本（Windows/Linux），自动检测版本、备份配置、智能更新。
 
 ### 常用命令
 
@@ -47,18 +47,27 @@ bash update_openai_codex.sh
 
 ## CLIProxyAPI
 
-Windows 专用 Python 更新脚本。
+跨平台 Bash 更新脚本（Windows/Linux/macOS），自动检测版本、备份配置、下载解压并校验安装结果。
 
-```bash
-python update_cli_proxy.py  # 自动下载最新版、备份配置、解压安装
-```
+### 常用命令
+
+| 命令 | 说明 |
+|------|------|
+| `bash update_cliproxyapi.sh` | 更新到最新版本 |
+| `bash update_cliproxyapi.sh --check-only` | 仅检查本地与目标版本 |
+| `bash update_cliproxyapi.sh --dry-run` | 模拟运行，显示计划操作 |
+| `bash update_cliproxyapi.sh --force` | 强制重新安装当前版本 |
+| `bash update_cliproxyapi.sh --target-version v6.8.35` | 安装指定版本 |
+| `bash update_cliproxyapi.sh --allow-downgrade` | 允许降级到旧版本 |
+| `bash update_cliproxyapi.sh --keep-temp` | 保留临时文件用于调试 |
+| `bash update_cliproxyapi.sh --help` | 显示帮助信息 |
 
 ## Claude Code
 
 检查并更新 Claude Code。
 
 ```bash
-bash update_claude_code.sh  # 对比 CHANGELOG.md，有新版则执行 claude install
+bash update_claude_code.sh
 ```
 
 ## OpenAI Codex
@@ -66,5 +75,5 @@ bash update_claude_code.sh  # 对比 CHANGELOG.md，有新版则执行 claude in
 检查并更新全局 `@openai/codex`。
 
 ```bash
-bash update_openai_codex.sh  # 查询 npm registry，落后则执行 npm i -g
+bash update_openai_codex.sh
 ```
