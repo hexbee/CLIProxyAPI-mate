@@ -1,2 +1,5 @@
-# 忽略 CLIProxyAPI 文件夹（这是下载的二进制程序）
+# Ignore downloaded binary directories
 CLIProxyAPI/
+CLIProxyAPIPlus/
+tmp/
+docs/
