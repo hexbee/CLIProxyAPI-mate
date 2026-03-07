@@ -8,6 +8,13 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
+FINAL_VERSION_FILE="$(mktemp)"
+
+print_version_summary() {
+    local old_version="${1:-not installed}"
+    local new_version="${2:-unknown}"
+    echo "VERSION_SUMMARY|old=${old_version}|new=${new_version}"
+}
 
 print_final_version() {
     echo
@@ -18,7 +25,7 @@ print_final_version() {
         exit 1
     fi
 
-    codex --version
+    codex --version | tee "${FINAL_VERSION_FILE}"
 }
 
 version_gt() {
@@ -64,3 +71,7 @@ else
 fi
 
 print_final_version
+
+final_version="$(awk 'NR==1 { print $NF }' "${FINAL_VERSION_FILE}")"
+rm -f "${FINAL_VERSION_FILE}"
+print_version_summary "${local_version:-not installed}" "${final_version:-unknown}"

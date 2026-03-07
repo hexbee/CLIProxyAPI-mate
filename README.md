@@ -5,6 +5,9 @@
 ## 快速开始
 
 ```bash
+# All tools in parallel
+bash update_all.sh
+
 # CLIProxyAPIPlus
 bash update_cliproxyapiplus.sh
 
@@ -16,6 +19,13 @@ bash update_claude_code.sh
 
 # OpenAI Codex
 bash update_openai_codex.sh
+```
+
+## All Updates
+
+骞惰杩愯 `CLIProxyAPIPlus`銆乧laude Code 鍜?OpenAI Codex 鐨勬洿鏂拌剼鏈紝姣忎釜浠诲姟鐙珛鎵ц锛屾渶鍚庣粺涓€姹囨€荤粨鏋溿€?
+```bash
+bash update_all.sh
 ```
 
 ## CLIProxyAPIPlus

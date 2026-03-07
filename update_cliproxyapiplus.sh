@@ -35,6 +35,12 @@ print_error() {
     echo -e "${RED}Error: $1${NC}" >&2
 }
 
+print_version_summary() {
+    local old_version="${1:-not installed}"
+    local new_version="${2:-unknown}"
+    echo "VERSION_SUMMARY|old=${old_version}|new=${new_version}"
+}
+
 require_command() {
     if ! command -v "$1" >/dev/null 2>&1; then
         print_error "'$1' command not found."
@@ -442,17 +448,20 @@ main() {
     ARCHIVE_PATH="${TMP_DIR}/package.${ARCHIVE_EXT}"
 
     if [ "${CHECK_ONLY}" -eq 1 ]; then
+        print_version_summary "${LOCAL_VERSION:-not installed}" "${VERSION}"
         echo -e "${GREEN}Check completed. No changes made.${NC}"
         exit 0
     fi
 
     if [ "${DRY_RUN}" -eq 1 ]; then
         print_planned_actions
+        print_version_summary "${LOCAL_VERSION:-not installed}" "${VERSION}"
         echo -e "${GREEN}Dry run completed. No changes made.${NC}"
         exit 0
     fi
 
     if [ -n "${LOCAL_VERSION}" ] && [ "${LOCAL_VERSION}" = "${VERSION}" ] && [ "${FORCE_INSTALL}" -eq 0 ]; then
+        print_version_summary "${LOCAL_VERSION}" "${LOCAL_VERSION}"
         echo -e "${GREEN}CLIProxyAPIPlus is already up to date. Exiting.${NC}"
         exit 0
     fi
@@ -483,6 +492,7 @@ main() {
     echo -e "${GREEN}CLIProxyAPIPlus ${VERSION} installed successfully.${NC}"
     echo "Binary: ${INSTALL_DIR}/${BINARY_NAME}"
     echo "Config: ${INSTALL_DIR}/config.yaml"
+    print_version_summary "${LOCAL_VERSION:-not installed}" "${VERSION}"
 
     if [ -n "${BACKUP_NAME}" ]; then
         echo "Backup: ${INSTALL_DIR}/${BACKUP_NAME}"
