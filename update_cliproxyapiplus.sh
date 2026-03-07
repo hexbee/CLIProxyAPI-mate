@@ -14,6 +14,7 @@ AUTO_YES=0
 KEEP_TEMP=0
 TARGET_TAG=""
 JSON_PARSER="shell"
+PREVIOUS_VERSION=""
 
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -443,19 +444,20 @@ main() {
     fetch_target_release
     detect_platform
     detect_local_version
+    PREVIOUS_VERSION="${LOCAL_VERSION:-}"
     validate_release_asset
 
     ARCHIVE_PATH="${TMP_DIR}/package.${ARCHIVE_EXT}"
 
     if [ "${CHECK_ONLY}" -eq 1 ]; then
-        print_version_summary "${LOCAL_VERSION:-not installed}" "${VERSION}"
+        print_version_summary "${PREVIOUS_VERSION:-not installed}" "${VERSION}"
         echo -e "${GREEN}Check completed. No changes made.${NC}"
         exit 0
     fi
 
     if [ "${DRY_RUN}" -eq 1 ]; then
         print_planned_actions
-        print_version_summary "${LOCAL_VERSION:-not installed}" "${VERSION}"
+        print_version_summary "${PREVIOUS_VERSION:-not installed}" "${VERSION}"
         echo -e "${GREEN}Dry run completed. No changes made.${NC}"
         exit 0
     fi
@@ -492,7 +494,7 @@ main() {
     echo -e "${GREEN}CLIProxyAPIPlus ${VERSION} installed successfully.${NC}"
     echo "Binary: ${INSTALL_DIR}/${BINARY_NAME}"
     echo "Config: ${INSTALL_DIR}/config.yaml"
-    print_version_summary "${LOCAL_VERSION:-not installed}" "${VERSION}"
+    print_version_summary "${PREVIOUS_VERSION:-not installed}" "${VERSION}"
 
     if [ -n "${BACKUP_NAME}" ]; then
         echo "Backup: ${INSTALL_DIR}/${BACKUP_NAME}"
